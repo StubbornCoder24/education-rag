@@ -1,0 +1,34 @@
+.deps/
+runtime/
+runtime_live/
+# 原始调用记录、数据库副本与注释备份仅保留在本机。
+evaluation/*
+!evaluation/rag_cases.json
+!evaluation/验收摘要.md
+.env
+env/
+venv/
+.venv/
+node_modules/
+.idea/
+.vscode/
+.env.*
+!.env.example
+__pycache__/
+.pytest_cache/
+*.pyc
+# 上传资料与运行数据库不作为源码提交。
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+*.sqlite3-*
+*.log
+*.pem
+*.key
+*.p12
+*.pfx
+*.pdf
+*.docx
+*.zip
+*.7z

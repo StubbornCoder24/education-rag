@@ -1,0 +1,326 @@
+{
+  "version": "rag-standalone-v1",
+  "provenance": "原50题中教育相关40题；30有依据、10无答案。云服务10题归属独立Agent项目。",
+  "cases": [
+    {
+      "id": "R01",
+      "group": 1,
+      "question": "while循环为什么更新变量",
+      "gold_source": "教育课程.md",
+      "gold_section": "while循环",
+      "expect_abstain": false
+    },
+    {
+      "id": "R02",
+      "group": 1,
+      "question": "while不更新条件变量会怎样",
+      "gold_source": "教育课程.md",
+      "gold_section": "while循环",
+      "expect_abstain": false
+    },
+    {
+      "id": "R03",
+      "group": 1,
+      "question": "while循环条件什么时候检查",
+      "gold_source": "教育课程.md",
+      "gold_section": "while循环",
+      "expect_abstain": false
+    },
+    {
+      "id": "R04",
+      "group": 1,
+      "question": "break和continue在循环里做什么",
+      "gold_source": "教育课程.md",
+      "gold_section": "while循环",
+      "expect_abstain": false
+    },
+    {
+      "id": "R05",
+      "group": 1,
+      "question": "i从1开始小于4每轮加1输出什么",
+      "gold_source": "教育课程.md",
+      "gold_section": "while循环",
+      "expect_abstain": false
+    },
+    {
+      "id": "R06",
+      "group": 2,
+      "question": "with打开文件有什么作用",
+      "gold_source": "教育课程.md",
+      "gold_section": "文件处理",
+      "expect_abstain": false
+    },
+    {
+      "id": "R07",
+      "group": 2,
+      "question": "UTF-8文本读取要指定什么",
+      "gold_source": "教育课程.md",
+      "gold_section": "文件处理",
+      "expect_abstain": false
+    },
+    {
+      "id": "R08",
+      "group": 2,
+      "question": "文件不存在应该处理什么异常",
+      "gold_source": "教育课程.md",
+      "gold_section": "文件处理",
+      "expect_abstain": false
+    },
+    {
+      "id": "R09",
+      "group": 2,
+      "question": "文件读取后如何关闭",
+      "gold_source": "教育课程.md",
+      "gold_section": "文件处理",
+      "expect_abstain": false
+    },
+    {
+      "id": "R10",
+      "group": 2,
+      "question": "FileNotFoundError出现先检查什么",
+      "gold_source": "教育课程.md",
+      "gold_section": "文件处理",
+      "expect_abstain": false
+    },
+    {
+      "id": "R11",
+      "group": 3,
+      "question": "Python基础课程包含哪些内容",
+      "gold_source": "教育课程.md",
+      "gold_section": "基础内容",
+      "expect_abstain": false
+    },
+    {
+      "id": "R12",
+      "group": 3,
+      "question": "变量的作用是什么",
+      "gold_source": "教育课程.md",
+      "gold_section": "基础内容",
+      "expect_abstain": false
+    },
+    {
+      "id": "R13",
+      "group": 3,
+      "question": "函数封装什么操作",
+      "gold_source": "教育课程.md",
+      "gold_section": "基础内容",
+      "expect_abstain": false
+    },
+    {
+      "id": "R14",
+      "group": 3,
+      "question": "条件判断用来做什么",
+      "gold_source": "教育课程.md",
+      "gold_section": "基础内容",
+      "expect_abstain": false
+    },
+    {
+      "id": "R15",
+      "group": 3,
+      "question": "基础课是否包含文件操作",
+      "gold_source": "教育课程.md",
+      "gold_section": "基础内容",
+      "expect_abstain": false
+    },
+    {
+      "id": "R16",
+      "group": 4,
+      "question": "文档处理有哪些步骤",
+      "gold_source": "教育课程.md",
+      "gold_section": "文档处理",
+      "expect_abstain": false
+    },
+    {
+      "id": "R17",
+      "group": 4,
+      "question": "分块要保留哪些来源信息",
+      "gold_source": "教育课程.md",
+      "gold_section": "文档处理",
+      "expect_abstain": false
+    },
+    {
+      "id": "R18",
+      "group": 4,
+      "question": "分块重叠有什么作用",
+      "gold_source": "教育课程.md",
+      "gold_section": "文档处理",
+      "expect_abstain": false
+    },
+    {
+      "id": "R19",
+      "group": 4,
+      "question": "PDF页码按什么规则编号",
+      "gold_source": "教育课程.md",
+      "gold_section": "文档处理",
+      "expect_abstain": false
+    },
+    {
+      "id": "R20",
+      "group": 4,
+      "question": "扫描PDF需要什么处理",
+      "gold_source": "教育课程.md",
+      "gold_section": "文档处理",
+      "expect_abstain": false
+    },
+    {
+      "id": "R21",
+      "group": 5,
+      "question": "BM25使用哪些信息计算相关性",
+      "gold_source": "教育课程.md",
+      "gold_section": "检索与引用",
+      "expect_abstain": false
+    },
+    {
+      "id": "R22",
+      "group": 5,
+      "question": "向量检索比较什么",
+      "gold_source": "教育课程.md",
+      "gold_section": "检索与引用",
+      "expect_abstain": false
+    },
+    {
+      "id": "R23",
+      "group": 5,
+      "question": "混合检索如何融合排名",
+      "gold_source": "教育课程.md",
+      "gold_section": "检索与引用",
+      "expect_abstain": false
+    },
+    {
+      "id": "R24",
+      "group": 5,
+      "question": "合法引用ID证明语义支持吗",
+      "gold_source": "教育课程.md",
+      "gold_section": "检索与引用",
+      "expect_abstain": false
+    },
+    {
+      "id": "R25",
+      "group": 5,
+      "question": "资料没有答案时应该怎样回答",
+      "gold_source": "教育课程.md",
+      "gold_section": "检索与引用",
+      "expect_abstain": false
+    },
+    {
+      "id": "R26",
+      "group": 6,
+      "question": "同名文档更新后怎样处理旧分块",
+      "gold_source": "教育课程.md",
+      "gold_section": "文档更新",
+      "expect_abstain": false
+    },
+    {
+      "id": "R27",
+      "group": 6,
+      "question": "新版本索引什么时候替换",
+      "gold_source": "教育课程.md",
+      "gold_section": "文档更新",
+      "expect_abstain": false
+    },
+    {
+      "id": "R28",
+      "group": 6,
+      "question": "删除文档如何避免索引残留",
+      "gold_source": "教育课程.md",
+      "gold_section": "文档更新",
+      "expect_abstain": false
+    },
+    {
+      "id": "R29",
+      "group": 6,
+      "question": "文档内容变化是否递增版本",
+      "gold_source": "教育课程.md",
+      "gold_section": "文档更新",
+      "expect_abstain": false
+    },
+    {
+      "id": "R30",
+      "group": 6,
+      "question": "向量化成功前是否替换旧索引",
+      "gold_source": "教育课程.md",
+      "gold_section": "文档更新",
+      "expect_abstain": false
+    },
+    {
+      "id": "R41",
+      "group": 9,
+      "question": "课程学费多少钱",
+      "gold_source": null,
+      "gold_section": null,
+      "expect_abstain": true
+    },
+    {
+      "id": "R42",
+      "group": 9,
+      "question": "Python课学费是多少",
+      "gold_source": null,
+      "gold_section": null,
+      "expect_abstain": true
+    },
+    {
+      "id": "R43",
+      "group": 9,
+      "question": "RAG课的学费是多少",
+      "gold_source": null,
+      "gold_section": null,
+      "expect_abstain": true
+    },
+    {
+      "id": "R44",
+      "group": 9,
+      "question": "培训学费怎么收费",
+      "gold_source": null,
+      "gold_section": null,
+      "expect_abstain": true
+    },
+    {
+      "id": "R45",
+      "group": 9,
+      "question": "这门课学费具体多少",
+      "gold_source": null,
+      "gold_section": null,
+      "expect_abstain": true
+    },
+    {
+      "id": "R46",
+      "group": 10,
+      "question": "课程是否保证就业",
+      "gold_source": null,
+      "gold_section": null,
+      "expect_abstain": true
+    },
+    {
+      "id": "R47",
+      "group": 10,
+      "question": "培训是否保证就业",
+      "gold_source": null,
+      "gold_section": null,
+      "expect_abstain": true
+    },
+    {
+      "id": "R48",
+      "group": 10,
+      "question": "项目是否提供就业保证",
+      "gold_source": null,
+      "gold_section": null,
+      "expect_abstain": true
+    },
+    {
+      "id": "R49",
+      "group": 10,
+      "question": "完成课程能保证就业吗",
+      "gold_source": null,
+      "gold_section": null,
+      "expect_abstain": true
+    },
+    {
+      "id": "R50",
+      "group": 10,
+      "question": "学习结束有就业保证吗",
+      "gold_source": null,
+      "gold_section": null,
+      "expect_abstain": true
+    }
+  ]
+}
