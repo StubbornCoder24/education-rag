@@ -36,10 +36,11 @@
 
 ### 本地模型（已接入）
 
-- **Embedding**：`D:\models\BAAI\bge-base-zh-v1.5`（768 维），目录存在即启用，查询自动加 bge 指令前缀；
-- **重排**：`D:\models\BAAI\bge-reranker-base`，替换原来的 LLM 重排，CPU 上 8 候选约 100–200ms；
+- **Embedding**：`bge-base-zh-v1.5`（768 维）。设置 `EMBEDDING_MODEL_PATH` 指向模型目录才启用（默认不启用，走哈希向量），查询自动加 bge 指令前缀；
+- **重排**：`bge-reranker-base`，设置 `RERANKER_MODEL_PATH` 后启用，替换原来的 LLM 重排，CPU 上 8 候选约 100–200ms；
 - 换模型后跑一次 `python -X utf8 重建索引.py`（片段文本还在库里，不需要原始文件）；
-- 换机器用 `EMBEDDING_MODEL_PATH` / `RERANKER_MODEL_PATH` 覆盖路径，目录不存在会自动退回 API 或哈希向量。
+- 换机器只需设置这两个环境变量；目录不存在或未装 `requirements-local.txt` 时自动退回哈希向量。
+- 注意：切换是否启用本地模型等同于换模型，`documents.backend` 会变，旧资料必须跑一次 `python -X utf8 重建索引.py --data runtime` 才能继续检索到。
 - 本地模型是**可选依赖**：需要 `python -m pip install -r requirements-local.txt`（含 sentence-transformers、jieba）。只放模型目录、不装依赖时程序会退回哈希向量，不会报错。
 
 ### 评测结果（11 篇文档 / 22 题，本地 bge）
@@ -55,7 +56,16 @@
 
 重排把 Recall@5 从 0.833 拉到 0.944，但 MRR 略降——重排会把部分正确页从第 1 位挪到第 2–3 位，换取更多正确页进入前 5。
 
-复现：`python -X utf8 evaluation/eval_metrics.py --cases pdf_cases.json --no-ingest`（语料在 `runtime_lc2`，评测集在 `evaluation/pdf_cases.json`）。
+复现（PowerShell；语料在 `runtime_lc2`，评测集在 `evaluation/pdf_cases.json`）：
+
+```powershell
+$env:APP_DATA='runtime_lc2'
+$env:EMBEDDING_MODEL_PATH='D:\models\BAAI\bge-base-zh-v1.5'
+$env:RERANKER_MODEL_PATH='D:\models\BAAI\bge-reranker-base'
+python -X utf8 evaluation/eval_metrics.py --cases pdf_cases.json --no-ingest
+```
+
+不设 `APP_DATA` 时脚本默认用 `runtime_eval`（空库，结果全 0）；不设模型变量则退回哈希向量，数字会明显不同。
 
 > 评测说明：仓库自带样例只有 1 篇文档，Recall 会接近 1.0，这组数字不能直接写进简历；导入多篇文档后重跑才有效。
 

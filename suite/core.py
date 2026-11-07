@@ -96,9 +96,10 @@ class Config:
     model: str = "qwen-plus"
     embedding_model: str = "text-embedding-v4"
     dimensions: int = 1024
-    # 本地模型目录：存在就用本地推理，不存在自动退回 API（live）或哈希向量（demo）
-    embedding_path: str = os.getenv("EMBEDDING_MODEL_PATH", r"D:\models\BAAI\bge-base-zh-v1.5")
-    reranker_path: str = os.getenv("RERANKER_MODEL_PATH", r"D:\models\BAAI\bge-reranker-base")
+    # 本地模型目录：默认留空（可移植），设置环境变量后才启用；
+    # 未设置或目录不可用时自动退回 API（live）或哈希向量（demo）。
+    embedding_path: str = os.getenv("EMBEDDING_MODEL_PATH", "")
+    reranker_path: str = os.getenv("RERANKER_MODEL_PATH", "")
     vector_store: str = "sqlite"
     milvus_uri: str = ""
     milvus_collection: str = ""
