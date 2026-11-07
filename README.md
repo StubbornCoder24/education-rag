@@ -16,11 +16,14 @@ flowchart LR
   F[PDF/MD/TXT] --> P[extract 解析]
   P --> C[split_units<br/>表格/代码整块]
   C --> E[embed]
-  E --> DB[(SQLite<br/>chunks + vector)]
+  E --> DB[(SQLite<br/>片段、版本与向量)]
+  E -->|Milvus 模式| MV[(Milvus<br/>向量索引)]
   Q[问题] --> R{retrieve}
   DB --> R
   R -->|keyword BM25| K[排序]
-  R -->|vector 余弦| V[排序]
+  R -->|SQLite 模式| V[余弦排序]
+  R -->|Milvus 模式| MV
+  MV -->|召回片段 ID| V
   K --> RR[RRF 融合]
   V --> RR
   RR --> RK[bge-reranker 重排]
@@ -30,7 +33,7 @@ flowchart LR
 ```
 
 
-项目状态：个人实践项目，核心链路已实现。Docker 与云端 Milvus 的配置已提供，容器运行和云端联调在这一版没有复验；历史真实样例结果不等于生产效果。源码仓库不包含上传课件、运行数据库、原始问答和真实密钥。GitHub上传步骤见[GitHub上传指南](docs/GitHub上传指南.md)。
+个人实践项目。曾在云端用 Docker Compose 验证 RAG 与 Milvus 的向量检索、引用、同名更新、删除和应用重启恢复，也做了浏览器验收。测试实例已释放，公开仓库可用自编样例离线复现。BGE 联调在本机运行模型并连接云端 Milvus，和云端哈希演示分开记录。
 
 2026-11-07 修订：本地模型依赖缺失时自动退回哈希向量（不再让请求 500）；异步任务表加上限；页面右上角新增“访问口令”，设置 `APP_TOKEN` 后页面也能正常上传/删除；补仓库与打包规则（评测脚本随仓库发布，运行数据库不进包）；清理翻译腔注释。当前测试数为 **35 项**。
 
@@ -90,8 +93,8 @@ flowchart LR
 
 ```powershell
 $env:APP_DATA='runtime_lc2'
-$env:EMBEDDING_MODEL_PATH='D:\models\BAAI\bge-base-zh-v1.5'
-$env:RERANKER_MODEL_PATH='D:\models\BAAI\bge-reranker-base'
+$env:EMBEDDING_MODEL_PATH='./models/bge-base-zh-v1.5'
+$env:RERANKER_MODEL_PATH='./models/bge-reranker-base'
 python -X utf8 evaluation/eval_metrics.py --cases pdf_cases.json --no-ingest
 ```
 
@@ -130,10 +133,11 @@ python -X utf8 启动项目.py
 python 验证项目.py
 # 可选真实调用，仅发送本目录样例和测试内容，有真实接口消耗
 python 验证项目.py --live
+# 需要在 Git 检出目录中运行，打包范围以 Git 跟踪文件为准
 python 打包源码.py
 ```
 
-验证记录在本项目evaluation目录。Docker配置也已分离：`docker compose up --build -d`后执行`docker compose exec projects python 初始化样例.py`。当前主机没有Docker，容器运行尚未验收。
+验证记录在本项目 evaluation 目录。Docker 部署先执行 `docker compose up --build -d`，再执行 `docker compose exec projects python 初始化样例.py`。有真实模型调用或云端联调的记录属于对应测试环境。
 
 ## 云端 Milvus 联调
 
@@ -202,6 +206,6 @@ curl -fsS -F "file=@$check_file" http://127.0.0.1:8011/api/rag/documents
 
 原合并目录未删除；使用SQLite在线backup读取来源，在新副本保留本项目数据。两份原始自编样例按项目归属分离，其他用户上传文档保留副本，不按内容猜测删除。Agent原会话/任务/工单若存在会随副本保留；浏览器端口改变后需手工粘贴原会话编号恢复。
 
-本次独立离线测试另存报告。拆分前真实模型验收属于历史证据，不冒充拆分后再次真实调用。完整浏览器点击与 Docker 验收仍待完成，因此本版不宣称容器或云端验收已经完成。
+历史云端验收覆盖了网页引用定位、反馈、拒答、文档增删改和应用重启后索引复用。本轮开源前复验使用本地自动化和公开样例。
 
-本地演示不是生产服务：未提供用户认证、OCR、ANN向量数据库或云端部署；SQLite全量检索适合当前小规模资料。demo为哈希向量/确定性路由/原文摘录，不是离线大模型。真实模式最多4次Agent回答模型请求/轮，不自动重试；引用ID合法性不等于语义一定支持。
+展示版面向个人实践，默认用哈希向量与原文摘录。扫描件 OCR、完整用户认证和多人部署需要另行接入与验收。引用可以定位原文，回答是否得到原文支持仍需核对。

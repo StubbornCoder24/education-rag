@@ -1,7 +1,6 @@
 .deps/
-runtime/
-runtime_live/
-runtime_lc2/
+/runtime*/
+/models/
 # 原始调用记录、数据库副本与注释备份仅保留在本机；评测脚本与用例随仓库发布。
 evaluation/*
 !evaluation/eval_metrics.py
