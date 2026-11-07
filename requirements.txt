@@ -6,3 +6,4 @@ pypdf==6.21.1
 python-multipart>=0.0.20,<1
 httpx==0.28.1
 pytest>=8,<10
+pymilvus==3.0.2

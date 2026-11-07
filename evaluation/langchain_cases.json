@@ -1,0 +1,22 @@
+{
+  "version": "langchain-v1",
+  "note": "基于 LangChain框架.pdf 自建，gold 按物理页标注；问题为改写，不复用原文标题",
+  "cases": [
+    {"id": "L01", "question": "温度参数设成 0 和 1 分别适合什么场景", "gold_source": "LangChain框架.pdf", "gold_page": 3, "expect_abstain": false},
+    {"id": "L02", "question": "表示用户输入和模型回复的消息类型分别叫什么", "gold_source": "LangChain框架.pdf", "gold_page": 4, "expect_abstain": false},
+    {"id": "L03", "question": "把提示词做成模板有什么好处", "gold_source": "LangChain框架.pdf", "gold_page": 7, "expect_abstain": false},
+    {"id": "L04", "question": "用管道符把组件串起来时，数据是怎么在组件之间流动的", "gold_source": "LangChain框架.pdf", "gold_page": 13, "expect_abstain": false},
+    {"id": "L05", "question": "RunnableParallel 是用来做什么的", "gold_source": "LangChain框架.pdf", "gold_page": 16, "expect_abstain": false},
+    {"id": "L06", "question": "条件分支链靠什么决定走哪一条链", "gold_source": "LangChain框架.pdf", "gold_page": 18, "expect_abstain": false},
+    {"id": "L07", "question": "对话历史太长时用哪个函数裁掉旧消息", "gold_source": "LangChain框架.pdf", "gold_page": 30, "expect_abstain": false},
+    {"id": "L08", "question": "为什么不建议把聊天历史存进向量库", "gold_source": "LangChain框架.pdf", "gold_page": 34, "expect_abstain": false},
+    {"id": "L09", "question": "检索流程里 Retriever 负责哪些事情", "gold_source": "LangChain框架.pdf", "gold_page": 36, "expect_abstain": false},
+    {"id": "L10", "question": "怎么把一段文本封装成 LangChain 的 Document 对象", "gold_source": "LangChain框架.pdf", "gold_page": 37, "expect_abstain": false},
+    {"id": "L11", "question": "加载 JSON 格式的数据文件用哪个 Loader", "gold_source": "LangChain框架.pdf", "gold_page": 38, "expect_abstain": false},
+    {"id": "L12", "question": "为什么 unstructured 包会提示缺少 NLTK 的语言模型包", "gold_source": "LangChain框架.pdf", "gold_page": 42, "expect_abstain": false},
+    {"id": "U01", "question": "LangChain 的安装包有多大", "expect_abstain": true},
+    {"id": "U02", "question": "怎么把 LangChain 服务部署到 Kubernetes 集群", "expect_abstain": true},
+    {"id": "U03", "question": "GPT-5 的接口价格是多少", "expect_abstain": true},
+    {"id": "U04", "question": "React 的 useEffect 依赖数组该怎么写", "expect_abstain": true}
+  ]
+}

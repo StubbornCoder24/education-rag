@@ -16,7 +16,7 @@
 2. 在本机PowerShell依次执行：
 
 ```powershell
-Set-Location 'D:\学习\实训\职业教育知识库RAG_成品'
+Set-Location '你的项目目录'
 git --version
 git init -b main
 git status --short --untracked-files=all

@@ -1,10 +1,15 @@
 .deps/
 runtime/
 runtime_live/
-# 原始调用记录、数据库副本与注释备份仅保留在本机。
+runtime_lc2/
+# 原始调用记录、数据库副本与注释备份仅保留在本机；评测脚本与用例随仓库发布。
 evaluation/*
+!evaluation/eval_metrics.py
 !evaluation/rag_cases.json
-!evaluation/验收摘要.md
+!evaluation/pdf_cases.json
+!evaluation/langchain_cases.json
+!evaluation/metrics_report.json
+!evaluation/独立性验收.json
 .env
 env/
 venv/

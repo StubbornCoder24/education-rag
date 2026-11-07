@@ -3,7 +3,7 @@ services:
   projects:
     build: .
     ports:
-      - "127.0.0.1:8001:8001"
+      - "127.0.0.1:${RAG_HOST_PORT:-8001}:8001"
     environment:
       APP_MODE: ${APP_MODE:-demo}
       DASHSCOPE_API_KEY: ${DASHSCOPE_API_KEY:-}

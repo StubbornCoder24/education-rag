@@ -1,0 +1,7 @@
+{
+  "project": "rag",
+  "relocated": true,
+  "standalone_routes": true,
+  "demo_flow": true,
+  "static_dom_references_valid": true
+}

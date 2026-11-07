@@ -1,0 +1,15 @@
+services:
+  projects:
+    environment:
+      APP_MODE: demo
+      DASHSCOPE_API_KEY: ""
+      VECTOR_STORE: milvus
+      MILVUS_URI: http://standalone:19530
+      MILVUS_COLLECTION: education_rag_demo_1024
+    networks:
+      - default
+      - milvus
+
+networks:
+  milvus:
+    external: true

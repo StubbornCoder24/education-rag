@@ -1,0 +1,30 @@
+{
+  "version": "pdf-v1",
+  "note": "两份课件（LangChain、Milvus）自建评测集，另含 9 篇项目文档作干扰项；gold 按物理页标注，问题为改写",
+  "cases": [
+    {"id": "L01", "question": "温度参数设成 0 和 1 分别适合什么场景", "gold_source": "LangChain框架.pdf", "gold_page": 3},
+    {"id": "L02", "question": "表示用户输入和模型回复的消息类型分别叫什么", "gold_source": "LangChain框架.pdf", "gold_page": 4},
+    {"id": "L03", "question": "把提示词做成模板有什么好处", "gold_source": "LangChain框架.pdf", "gold_page": 7},
+    {"id": "L04", "question": "用管道符把组件串起来时，数据是怎么在组件之间流动的", "gold_source": "LangChain框架.pdf", "gold_page": 13},
+    {"id": "L05", "question": "RunnableParallel 是用来做什么的", "gold_source": "LangChain框架.pdf", "gold_page": 16},
+    {"id": "L06", "question": "条件分支链靠什么决定走哪一条链", "gold_source": "LangChain框架.pdf", "gold_page": 18},
+    {"id": "L07", "question": "对话历史太长时用哪个函数裁掉旧消息", "gold_source": "LangChain框架.pdf", "gold_page": 30},
+    {"id": "L08", "question": "为什么不建议把聊天历史存进向量库", "gold_source": "LangChain框架.pdf", "gold_page": 34},
+    {"id": "L09", "question": "检索流程里 Retriever 负责哪些事情", "gold_source": "LangChain框架.pdf", "gold_page": 36},
+    {"id": "L10", "question": "怎么把一段文本封装成 LangChain 的 Document 对象", "gold_source": "LangChain框架.pdf", "gold_page": 37},
+    {"id": "L11", "question": "加载 JSON 格式的数据文件用哪个 Loader", "gold_source": "LangChain框架.pdf", "gold_page": 38},
+    {"id": "L12", "question": "为什么 unstructured 包会提示缺少 NLTK 的语言模型包", "gold_source": "LangChain框架.pdf", "gold_page": 42},
+
+    {"id": "M01", "question": "FLOAT_VECTOR 和 FLOAT16_VECTOR 在存储上有什么区别", "gold_source": "Milvus向量数据库.pdf", "gold_page": 5},
+    {"id": "M02", "question": "向量数据库建索引的目的是什么", "gold_source": "Milvus向量数据库.pdf", "gold_page": 6},
+    {"id": "M03", "question": "HNSW 相比暴力搜索和 IVF 有什么优势", "gold_source": "Milvus向量数据库.pdf", "gold_page": 10},
+    {"id": "M04", "question": "HNSW 里的剪枝是在做什么", "gold_source": "Milvus向量数据库.pdf", "gold_page": 12},
+    {"id": "M05", "question": "普通 RAG 场景推荐用哪种向量类型配合哪种索引", "gold_source": "Milvus向量数据库.pdf", "gold_page": 16},
+    {"id": "M06", "question": "L2 和 COSINE 两种度量怎么判断相似", "gold_source": "Milvus向量数据库.pdf", "gold_page": 17},
+
+    {"id": "U01", "question": "LangChain 的安装包有多大", "expect_abstain": true},
+    {"id": "U02", "question": "怎么把 LangChain 服务部署到 Kubernetes 集群", "expect_abstain": true},
+    {"id": "U03", "question": "Milvus 集群在 Kubernetes 上的副本数怎么配置", "expect_abstain": true},
+    {"id": "U04", "question": "React 的 useEffect 依赖数组该怎么写", "expect_abstain": true}
+  ]
+}
