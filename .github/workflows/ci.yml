@@ -23,3 +23,8 @@ jobs:
           node tests/test_stream_client.js
       - name: Retrieval metrics (demo mode)
         run: python evaluation/eval_metrics.py
+      - name: Docker startup smoke test
+        run: |
+          docker compose up --build -d
+          curl -fsS --retry 10 --retry-all-errors http://127.0.0.1:8001/api/health
+          docker compose exec -T projects python seed_demo.py

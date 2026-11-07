@@ -77,7 +77,7 @@ def create_app(config=None, provider_factory=None):
     def health():
         return {'status': 'ok', 'mode': config.mode, 'embedding_backend': rag.backend,
                 'vector_store': config.vector_store, 'model': config.model if config.mode == 'live' else '离线确定性演示（非大模型）',
-                'model_key_configured': bool(config.api_key), 'data_type': '个人实践/模拟业务'}
+                'model_key_configured': bool(config.api_key), 'data_type': '知识库'}
 
     # 列出当前模式可管理的文档，具体查询逻辑交给RAG。
     @app.get('/api/rag/documents')

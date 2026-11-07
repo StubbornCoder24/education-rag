@@ -20,7 +20,7 @@ def main():
     config = Config.env()
     config.mode, config.data = 'live', ROOT / 'runtime_live'
     if not config.api_key:
-        raise AppError('未配置DASHSCOPE_API_KEY，请在本机环境变量中配置，勿粘贴到聊天中')
+        raise AppError('请通过环境变量配置 DASHSCOPE_API_KEY')
     with closing(sqlite3.connect((ROOT / 'runtime/app.db').as_uri() + '?mode=ro', uri=True)) as db:
         db.row_factory = sqlite3.Row
         doc = db.execute('SELECT * FROM documents WHERE name=?', (args.name,)).fetchone()

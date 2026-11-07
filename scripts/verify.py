@@ -47,31 +47,21 @@ def main():
             for path in (ROOT / 'samples').glob('*.md'):
                 # 按当前配置解析并建立该文档的检索索引
                 app.state.rag.ingest(path.name, path.read_bytes())
-            if PROJECT == 'rag':
-                if args.live:
-                    report['answers'] = [app.state.rag.answer(q) for q in ('while循环为什么更新变量？', '课程学费多少钱？')]
-                else:
-                    cases = json.loads((ROOT / 'evaluation/rag_cases.json').read_text(encoding='utf-8'))['cases']
-                    comparison = []
-                    for strategy in ('keyword', 'vector', 'hybrid', 'hybrid_rerank'):
-                        rows = []
-                        for case in cases:
-                            result = app.state.rag.answer(case['question'], strategy)
-                            rows.append({**case, 'hit_at_4': any(s['name'] == case['gold_source'] and s['section'] == case['gold_section'] for s in result['sources']) if not case['expect_abstain'] else None,
-                                'abstained': result['abstained'], 'answer': result['answer']})
-                        comparison.append({'strategy': strategy, 'retrieval_hits': sum(row['hit_at_4'] is True for row in rows),
-                            'answerable_count': 30, 'abstain_correct': sum(row['expect_abstain'] and row['abstained'] for row in rows),
-                            'unanswerable_count': 10, 'results': rows})
-                    report['comparison'] = comparison
+            if args.live:
+                report['answers'] = [app.state.rag.answer(q) for q in ('while循环为什么更新变量？', '课程学费多少钱？')]
             else:
-                agent = app.state.agent
-                sid = agent.session()
-                report['chat'] = [agent.chat(sid, text) for text in ('查询订单支付状态', 'A001', '服务P001价格是多少')]
-                task = agent.draft(sid, 'standalone-check', '订单A001云服务器无法连接')
-                confirmed = agent.decide(sid, task['id'], task['version'], '确认')
-                repeated = agent.decide(sid, task['id'], task['version'], '确认')
-                assert confirmed['created'] and repeated['reused'] and confirmed['ticket']['id'] == repeated['ticket']['id']
-                report['task_check'] = {'input_type': '临时库自动化模拟确认', 'task': task, 'first': confirmed, 'repeated': repeated}
+                cases = json.loads((ROOT / 'evaluation/retrieval_cases.json').read_text(encoding='utf-8'))['cases']
+                comparison = []
+                for strategy in ('keyword', 'vector', 'hybrid', 'hybrid_rerank'):
+                    rows = []
+                    for case in cases:
+                        result = app.state.rag.answer(case['question'], strategy)
+                        rows.append({**case, 'hit_at_4': any(s['name'] == case['gold_source'] and s['section'] == case['gold_section'] for s in result['sources']) if not case['expect_abstain'] else None,
+                            'abstained': result['abstained'], 'answer': result['answer']})
+                    comparison.append({'strategy': strategy, 'retrieval_hits': sum(row['hit_at_4'] is True for row in rows),
+                        'answerable_count': sum(not row['expect_abstain'] for row in rows), 'abstain_correct': sum(row['expect_abstain'] and row['abstained'] for row in rows),
+                        'unanswerable_count': sum(row['expect_abstain'] for row in rows), 'results': rows})
+                report['comparison'] = comparison
             with app.state.store.db() as db:
                 report['traces'] = [dict(row) for row in db.execute('SELECT * FROM traces ORDER BY created')]
         report['temporary_database_removed'] = True

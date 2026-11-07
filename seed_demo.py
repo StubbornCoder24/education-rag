@@ -16,8 +16,13 @@ def main():
     config = Config.env()
     rag = RAG(Store(config))
     print("索引模式：", config.mode, "；live会向模型服务发送文档片段。")
+    existing = {document["name"] for document in rag.documents()}
     for path in (ROOT / "samples").glob("*.md"):
-        print(rag.ingest(path.name, path.read_bytes()))
+        # 已初始化的数据库继续使用原样例名，避免升级时重复索引。
+        name = path.name
+        if name == "education_guide.md" and name not in existing and "教育课程.md" in existing:
+            name = "教育课程.md"
+        print(rag.ingest(name, path.read_bytes()))
     if args.pdf:
         print(rag.ingest(args.pdf.name, args.pdf.read_bytes()))
 

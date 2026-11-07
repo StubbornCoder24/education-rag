@@ -4,8 +4,8 @@
 再把 documents.backend 改成新标识。旧的 backend 标识会自动失效，不会混用。
 
 用法：
-    python -X utf8 重建索引.py
-    python -X utf8 重建索引.py --data runtime_live
+    python -X utf8 -m scripts.rebuild_index
+    python -X utf8 -m scripts.rebuild_index --data runtime_live
 """
 
 import argparse

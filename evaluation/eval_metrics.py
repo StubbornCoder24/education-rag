@@ -22,7 +22,7 @@ STRATEGIES = ["keyword", "vector", "hybrid", "hybrid_rerank"]
 TOP_K = 5
 
 
-def load_cases(name="rag_cases.json"):
+def load_cases(name="retrieval_cases.json"):
     with open(ROOT / "evaluation" / name, encoding="utf-8") as handle:
         return json.load(handle)["cases"]
 
@@ -78,7 +78,7 @@ def main():
     import argparse
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--cases", default="rag_cases.json", help="评测集文件名（放在 evaluation/ 下）")
+    parser.add_argument("--cases", default="retrieval_cases.json", help="评测集文件名（放在 evaluation/ 下）")
     parser.add_argument("--no-ingest", action="store_true", help="库已有语料时跳过样例导入")
     args = parser.parse_args()
     from suite.core import Config, Store
@@ -96,7 +96,7 @@ def main():
 
     print(f"\n模式: {config.mode} | 后端: {rag.backend} | 文档: {doc_count} | 用例: {len(cases)}")
     if doc_count < 3:
-        print("⚠ 语料不足 3 篇，Recall 会接近 1.0，这组数字不能写进简历；请先导入多篇文档。")
+        print("当前语料不足 3 篇，本次仅验证评测链路。比较检索策略时请使用多文档语料。")
     print()
     print(f"{'策略':<16}{'Recall@5':<12}{'MRR':<10}{'无答案误召回':<14}")
     print("-" * 54)

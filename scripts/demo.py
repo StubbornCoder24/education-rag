@@ -1,7 +1,7 @@
-"""面试现场演示：入库 → 三个问题带引用回答 → 四种检索策略对比。
+"""离线功能演示：入库 → 三个问题带引用回答 → 四种检索策略对比。
 
 临时库运行，不改动 runtime 里的演示数据。
-用法：python -X utf8 快速演示.py
+用法：python -X utf8 -m scripts.demo
 """
 
 import tempfile
@@ -9,7 +9,7 @@ import time
 from pathlib import Path
 
 from suite.app import create_app
-from suite.core import Config
+from suite.core import Config, ROOT
 
 
 def step(title, text):
@@ -22,7 +22,7 @@ def main():
     with tempfile.TemporaryDirectory(prefix="demo-") as tmp:
         app = create_app(Config(data=Path(tmp)))
         rag = app.state.rag
-        for path in sorted((Path(__file__).parent / "samples").glob("*")):
+        for path in sorted((ROOT / "samples").glob("*")):
             if path.is_file():
                 rag.ingest(path.name, path.read_bytes())
 

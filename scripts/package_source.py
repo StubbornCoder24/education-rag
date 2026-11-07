@@ -13,8 +13,8 @@ from suite.core import ROOT
 EXCLUDED_DIRS = {".deps", ".venv", "env", "venv", ".idea", ".vscode", "node_modules", "__pycache__", ".pytest_cache", ".git"}
 # 运行数据按前缀排除：runtime、runtime_live、runtime_eval 都是本机数据库。
 EXCLUDED_PREFIXES = ("runtime",)
-# evaluation 只保留可复现本文档命令所需的脚本与最新一份报告，历史批次留在本机。
-EVALUATION_FILES = {"eval_metrics.py", "rag_cases.json", "pdf_cases.json", "langchain_cases.json", "metrics_report.json", "独立性验收.json"}
+# evaluation 只发布评测入口及可公开的用例。
+EVALUATION_FILES = {"eval_metrics.py", "retrieval_cases.json"}
 # 打包后自检：这些后缀一旦出现说明排除规则失效。
 FORBIDDEN_SUFFIX = (".db", ".db-wal", ".db-shm", ".sqlite", ".sqlite3", ".sqlite3-wal",
                     ".sqlite3-shm", ".log", ".pem", ".key", ".p12", ".pfx", ".pdf", ".docx", ".zip", ".7z")
@@ -34,7 +34,7 @@ def wanted(path, relative):
 
 # 筛选可交付文件，逐个计算SHA256，再写ZIP并做完整性检查。
 def main():
-    destination = ROOT.parent / "职业教育知识库RAG_独立版.zip"
+    destination = ROOT.parent / "education-rag-source.zip"
     try:
         tracked = subprocess.check_output(["git", "ls-files", "-z", "--cached"], cwd=ROOT, stderr=subprocess.DEVNULL)
     except (OSError, subprocess.CalledProcessError) as error:
@@ -50,17 +50,17 @@ def main():
     leaked = [str(path.relative_to(ROOT)) for path in files if path.name.lower().endswith(FORBIDDEN_SUFFIX)]
     if leaked:
         raise SystemExit("打包中止：以下文件不应进入源码包 " + "、".join(leaked))
-    manifest = [{"path": str(path.relative_to(ROOT)), "sha256": hashlib.sha256(path.read_bytes()).hexdigest()} for path in sorted(files)]
+    manifest = [{"path": path.relative_to(ROOT).as_posix(), "sha256": hashlib.sha256(path.read_bytes()).hexdigest()} for path in sorted(files)]
     with zipfile.ZipFile(destination, "w", zipfile.ZIP_DEFLATED) as archive:
         for path in files:
-            archive.write(path, "职业教育知识库RAG_成品/" + path.relative_to(ROOT).as_posix())
-        archive.writestr("职业教育知识库RAG_成品/文件校验清单.json", json.dumps(manifest, ensure_ascii=False, indent=2))
+            archive.write(path, "education-rag/" + path.relative_to(ROOT).as_posix())
+        archive.writestr("education-rag/checksums.json", json.dumps(manifest, ensure_ascii=False, indent=2))
     with zipfile.ZipFile(destination) as archive:
         assert archive.testzip() is None
         names = archive.namelist()
         assert not [name for name in names if name.lower().endswith(FORBIDDEN_SUFFIX)], "源码包内仍混入运行数据"
     print(destination)
-    print("源码文件数：", len(files), "；不含运行数据或真实资料；完整原始验收记录保留在本机evaluation目录。")
+    print("源码文件数：", len(files), "；运行数据保留在本机。")
 
 
 # 仅当此文件作为入口直接运行时执行下面代码，被import时不启动

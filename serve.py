@@ -18,7 +18,7 @@ def main():
     from suite.app import create_app
     import uvicorn
     print("RAG页面：http://" + args.host + ":" + str(args.port) + "/rag")
-    print("模式：", args.mode, "；原教学数据库与记录不会被迁移或覆盖。")
+    print("模式：", args.mode, "；运行数据保存在配置指定的目录。")
     # 启动HTTP服务处理页面/API请求，直到进程被停止
     uvicorn.run(create_app(), host=args.host, port=args.port)
 
